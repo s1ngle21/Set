@@ -1,60 +1,60 @@
 package coffee.order;
 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class CoffeeOrderBoard {
+    @Override
+    public String toString() {
+        return "CoffeeOrderBoard{" +
+                "orderSet=" + orderSet +
+                '}';
+    }
 
-    private List<Order> orders;
+    private Set<Order> orderSet;
 
     public CoffeeOrderBoard() {
-        this.orders = new ArrayList<>();
+        this.orderSet = new LinkedHashSet<>();
     }
+    private static long maxOrderNum = 0;
 
     public void add(String customerName) {
-        long maxOrderNum = 0;
-        for (Order orderNum : orders) {
-            maxOrderNum = Math.max(maxOrderNum, orderNum.getOrderNumber());
-        }
-        Order order = new Order(maxOrderNum + 1, customerName);
-        for (Order existingOrder : orders) {
-            if (existingOrder == order) {
-                System.out.println("Order with number " + order.getOrderNumber() + " already exist");
-                return;
+        Order order = new Order( maxOrderNum + 1, customerName);
+        maxOrderNum = order.getOrderNumber();
+            if (orderSet.contains(order)) {
+                throw new OrderException("Order with number " + order.getOrderNumber() + " already exist");
             }
-        }
-        orders.add(order);
+        orderSet.add(order);
     }
 
-    public Order deliver() {
-        if (orders.isEmpty()) {
-            System.out.println("No orders in queue");
-            return null;
+    public void deliver() {
+        if (orderSet.isEmpty()) {
+            throw new OrderException("No orders in queue");
         }
-        Order closestOrder = orders.get(0);
-        orders.remove(0);
-        return closestOrder;
+        List<Order> orderList = orderSet.stream()
+                .toList();
+        Order closestOrder = orderList.get(0);
+        orderSet.remove(closestOrder);
     }
 
-    public Order deliver(int orderNum) {
-        Objects.requireNonNull(orderNum);
-        for (Order order : orders) {
-            if (order.getOrderNumber() == orderNum) {
-                orders.remove(order);
-                return order;
-            }
+    public void deliver(int orderNum) {
+        if (orderNum < 0) {
+            throw new OrderException("Order number must be above 0!");
         }
-        return null;
+        orderSet.stream()
+                .filter(order -> order.getOrderNumber() == orderNum)
+                .findFirst()
+                .ifPresent(order -> orderSet.remove(order));
     }
 
 
-    public List<Order> draw() {
-        System.out.println("Num | Name");
-        for (Order order : orders) {
-            System.out.println(order.getOrderNumber() + " | " + order.getCustomerName());
+    public String draw() {
+        String res = "Num | Name\n";
+        String ordersString = "";
+        for (Order order : orderSet) {
+            ordersString = order.getOrderNumber() + " | " + order.getCustomerName() + "\n";
+            res = res + ordersString;
         }
-        return orders;
+        return res;
     }
 }

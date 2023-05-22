@@ -8,19 +8,22 @@ public class Main {
         coffeeOrderBoard.add("Vader");
         coffeeOrderBoard.add("Luke");
 
-        coffeeOrderBoard.draw();
+        System.out.println(coffeeOrderBoard.draw());
         
         System.out.println();
 
-        Order deliveredOrder = coffeeOrderBoard.deliver();
-        System.out.println("Order Number: " + deliveredOrder.getOrderNumber() + " Customer Name: " + deliveredOrder.getCustomerName());
+        coffeeOrderBoard.deliver();
 
         System.out.println();
 
-        coffeeOrderBoard.draw();
+        System.out.println(coffeeOrderBoard.draw());
 
         System.out.println();
 
-        System.out.println(coffeeOrderBoard.deliver(3));
+        coffeeOrderBoard.deliver(3);
+
+        System.out.println();
+
+        System.out.println(coffeeOrderBoard.draw());
     }
 }
