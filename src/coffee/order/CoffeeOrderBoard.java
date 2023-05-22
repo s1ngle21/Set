@@ -4,12 +4,6 @@ package coffee.order;
 import java.util.*;
 
 public class CoffeeOrderBoard {
-    @Override
-    public String toString() {
-        return "CoffeeOrderBoard{" +
-                "orderSet=" + orderSet +
-                '}';
-    }
 
     private Set<Order> orderSet;
 
