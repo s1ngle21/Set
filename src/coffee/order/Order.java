@@ -30,7 +30,7 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order Number: " + orderNumber + " Customer Name: " + customerName;
+        return "Order Number: " + orderNumber + "\nCustomer Name: " + customerName;
     }
 
     @Override
