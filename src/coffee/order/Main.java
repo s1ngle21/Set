@@ -12,7 +12,7 @@ public class Main {
         
         System.out.println();
 
-        System.out.println(coffeeOrderBoard.deliver());
+        coffeeOrderBoard.deliver();
 
         System.out.println();
 
@@ -20,12 +20,12 @@ public class Main {
 
         System.out.println();
 
-        System.out.println(coffeeOrderBoard.deliver(3));
+        coffeeOrderBoard.deliver(3);
 
         System.out.println();
 
         System.out.println(coffeeOrderBoard.draw());
 
-        System.out.println(coffeeOrderBoard.deliver(3));
+        coffeeOrderBoard.deliver(3);
     }
 }

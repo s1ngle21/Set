@@ -19,14 +19,14 @@ public class CoffeeOrderBoard {
         orderQueue.add(order);
     }
 
-    public Order deliver() {
+    public void deliver() {
         if (orderQueue.isEmpty()) {
             throw new OrderException("No orders in queue");
         }
-        return orderQueue.poll();
+         orderQueue.poll();
     }
 
-    public Order deliver(final int orderNum) {
+    public void deliver(final int orderNum) {
         if (orderNum < 0) {
             throw new OrderException("Order number must be above 0!");
         }
@@ -35,7 +35,6 @@ public class CoffeeOrderBoard {
                 .findFirst()
                 .orElseThrow(() -> new OrderException("There is no order with such order number: " + orderNum));
         orderQueue.remove(order);
-        return order;
     }
 
 
